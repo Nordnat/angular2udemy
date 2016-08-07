@@ -1,0 +1,48 @@
+<div class="container">
+    <h2>Changing Pass</h2>
+    <form [ngFormModel]="changePassForm" (ngSubmit)="signupChangeForm()">
+        <div class="form-group">
+            <label for="oldPass">Old Pass</label>
+            <input id="oldPass" 
+                type="text"
+                class="form-control"
+                ngControl="oldpass" 
+                #oldpass="ngForm"
+                required>
+                <div *ngIf="oldpass.touched && oldpass.errors" class="alert alert-danger">
+                    <div *ngIf="oldpass.errors.required">Field Required</div>
+                    <div *ngIf="oldpass.errors.needToBe">Not Valid previous pass</div>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="nPass">New Pass</label>
+            <input id="nPass" 
+                type="text" 
+                class="form-control" 
+                required ngControl="npass" #npass="ngForm" 
+                >
+            <div *ngIf="npass.touched && npass.errors" class="alert alert-danger">
+                <div *ngIf="npass.errors.required">New Pass required</div>
+                <div *ngIf="npass.errors.minlength">Minimal length is {{ npass.errors.minlength.requiredLength }} </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPass">Confirm New Pass</label>
+            <input id="confirmPass" 
+                type="text" 
+                class="form-control" 
+                ngControl="confirmpass" 
+                #confirmpass="ngForm"
+                required>
+            <div *ngIf="confirmpass.touched && confirmpass.errors" class="alert alert-danger">
+                <div *ngIf="confirmpass.errors.required">Confirmation required</div>
+            </div>
+            <div *ngIf="confirmpass.touched && changePassForm.errors && changePassForm.errors.needToMatch" class="alert alert-danger">
+                Not match
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+    --------------------------------------------------
+</div>

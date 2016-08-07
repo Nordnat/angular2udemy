@@ -1,0 +1,65 @@
+<div class="container">
+    <form #fo="ngForm" (ngSubmit)="onSubscribe(fo.form)">
+        <div class="form-group">
+            <label for="fiName">Name</label>
+            <input
+                ngControl="fiName"
+                #fiName="ngForm"
+                type="text"  
+                id="fiName" 
+                value="" 
+                class="form-control" 
+                required 
+                minlength="3">
+                <div *ngIf="fiName.touched && fiName.errors">
+                    <div 
+                        class="alert alert-danger" 
+                        *ngIf="fiName.errors.required">
+                        First name is required
+                    </div>
+                    <div 
+                        class="alert alert-danger" 
+                        *ngIf="fiName.errors.minlength"
+                    >
+                        First name requires {{ fiName.errors.minlength.requiredLength }}
+                    </div>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="fEmail">Email</label>
+            <input 
+                ngControl="fEmail" 
+                #fEmail="ngForm"
+                type="email" 
+                id="fEmail" 
+                value="" 
+                class="form-control"
+                required>
+                <div class="alert alert-danger"
+                    *ngIf="fEmail.touched && !fEmail.valid"
+                >
+                    Field required
+                </div>
+        </div>
+         <div class="form-group">
+            <label for="frequency">Frequency</label>
+            <select 
+                id="frequency" 
+                class="form-control"
+                ngControl="frequency" 
+                #frequency="ngForm"
+                required>
+                <option value=""></option>
+                <option *ngFor="let frequency of frequencies" value="{{ frequency.id }}">
+                    {{ frequency.label }}
+                </option>
+            </select>
+            <div class="alert alert-danger"
+                *ngIf="frequency.touched && !frequency.valid"
+            >
+                Field required
+            </div>
+        </div>
+        <button class="btn btn-primary"  type="submit" [disabled]="!fo.valid">Submit</button>
+    </form>
+</div>
